@@ -71,9 +71,7 @@ def update_prediction(input_value):
 
     return html.Div([
         html.H5(children="Predicted:"),
-        html.P([
-            dcc.Markdown(children=f"{predicted_age:.1f} years = {equation}")
-        ]),
+        dcc.Markdown(children=f"{predicted_age:.1f} years = {equation}"),
         html.H5(children='Actual:'),
         html.P(children=f"{country[target]} years")
     ])
