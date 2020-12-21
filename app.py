@@ -7,15 +7,6 @@ import pandas as pd
 
 from dash.dependencies import Input, Output
 
-app = dash.Dash(__name__)
-
-server = app.server
-
-colors = {
-    'background': '#111111',
-    'text': '#7FDBFF'
-}
-
 df = pd.read_csv('./data/led.csv')
 df = df[df['Year'] == 2015]
 df = pd.get_dummies(df, columns=['Status'], drop_first=True)
@@ -37,7 +28,9 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-equation = f"Formula = {model.intercept_:.3f}"
+server = app.server
+
+equation = f"Age = {model.intercept_:.3f}"
 for coefficient, feature in zip(model.coef_, features):
     equation = equation + f" + {coefficient:.3f}_{feature}_"
 
@@ -47,7 +40,7 @@ app.layout = html.Div([
         options=countries,
         value='Albania'
     ),
-    html.H6([
+    html.H5([
         dcc.Markdown(
             children=equation
         )
